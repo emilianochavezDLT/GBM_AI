@@ -63,3 +63,12 @@ This is useful because many machine learning algorithms require the input data t
 Each pixel in the 28x28 images is a feature, and the machine learning algorithms will treat each pixel as a separate feature.
 
 '''
+
+#Normalize the images
+#The pixel values in the images range from 0 to 255. 
+#We can normalize the pixel values to be between 0 and 1 by dividing the pixel values by 255.
+train_images = train_images / 255.0
+test_images = test_images / 255.0
+
+
+
