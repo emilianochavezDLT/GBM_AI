@@ -1,0 +1,1 @@
+arr = train_images.reshape((train_images.shape[0], -1))
