@@ -70,5 +70,19 @@ Each pixel in the 28x28 images is a feature, and the machine learning algorithms
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 
+#Train the model
+from sklearn.ensemble import GradientBoostingClassifier
+model = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
+model.fit(train_images, train_labels)
+
+#Make predictions
+predictions = model.predict(test_images)
+
+#Evaluate the model
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(test_labels, predictions)
+print(accuracy) # 0.7923
+
+
 
 
