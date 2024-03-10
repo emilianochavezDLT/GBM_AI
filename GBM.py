@@ -1,6 +1,9 @@
 import numpy as np
 import idx2numpy
 import matplotlib.pyplot as plt
+import time
+# pip install numpy scikit-learn matplotlib idx2numpy
+
 
 #Reference https://stackoverflow.com/questions/40427435/extract-images-from-idx3-ubyte-file-or-gzip-via-python
 #arr is now a numpy array of shape (60000, 28, 28), with each element an integer from 0 to 255
@@ -72,16 +75,33 @@ test_images = test_images / 255.0
 
 #Train the model
 from sklearn.ensemble import GradientBoostingClassifier
-model = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
+model = GradientBoostingClassifier(n_estimators=100, learning_rate=0.5, max_depth=3, random_state=0)
+
+start_time = time.time()
 model.fit(train_images, train_labels)
 
 #Make predictions
 predictions = model.predict(test_images)
 
+print("Time taken to train and predict:", time.time() - start_time)
+
+
 #Evaluate the model
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 accuracy = accuracy_score(test_labels, predictions)
-print(accuracy) # 0.7923
+precision = precision_score(test_labels, predictions, average='micro')
+recall = recall_score(test_labels, predictions, average='micro')
+f1 = f1_score(test_labels, predictions, average='micro')
+
+print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+print("F1 Score:", f1)
+
+#Using a mathplotlib to plot metric on a graph
+metrics = [accuracy, precision, recall, f1]
+plt.bar(['Accuracy', 'Precision', 'Recall', 'F1 Score'], metrics)
+plt.show()
 
 
 
